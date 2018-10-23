@@ -29,14 +29,14 @@ from geometry_msgs.msg import (
 
 
 class KinectV2FramePublisher(object):
-    def __init__(self, frame_id="head_camera", kinect_frame="kinect2_rgb_optical_frame", transform=None):
+    def __init__(self, frame_id="head_camera", kinect_frame="camera_color_optical_frame", transform=None):
         """
         Parameters
         -----------
         frame_id: str, default: head_camera
             kinect_frame の親となるフレーム名
 
-        kinect_frame: str, default: kinect2_rgb_optical_frame
+        kinect_frame: str, default: camera_color_optical_frame
             キネクトのtf frame名
 
         transform: geometry_msgs.Transform, default: None
@@ -55,7 +55,7 @@ class KinectV2FramePublisher(object):
 
         # transform
         self._transform = TransformStamped()
-        self._transform.header.frame_id = "head_camera"
+        self._transform.header.frame_id = frame_id
         self._transform.child_frame_id = kinect_frame
         if isinstance(transform, Transform):
             self._transform.transform = transform
@@ -109,7 +109,7 @@ class KinectV2FramePublisher(object):
             return
         rospy.loginfo("starting kinect tf frame.")
         rospy.loginfo("\n{self._transform}".format(**locals()))
-        rate = rospy.Rate(20)
+        rate = rospy.Rate(40)
         while not rospy.is_shutdown():
             # header の更新
             self._transform.header.stamp = rospy.Time.now()

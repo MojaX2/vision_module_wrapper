@@ -45,8 +45,8 @@ class VisionWrapper():  # TODO tfの名前を可変にする。TFの名前の取
     """
     def __init__(self):
         rospy.init_node("vision_wrapper")
-        self.parent_frame = rospy.get_param("~parent_frame", "map") # TODO param のネームスペース
-        self.child_frame = rospy.get_param("~child_frame", "head_rgbd_sensor_rgb_frame")
+        self.parent_frame = rospy.get_param("~parent_frame", "base") # TODO param のネームスペース
+        self.child_frame = rospy.get_param("~child_frame", "camera_color_optical_frame")
         self.buf = tf2_ros.Buffer()
         self.lis = tf2_ros.TransformListener(self.buf)
         self.pub_object = rospy.Publisher(
@@ -102,7 +102,6 @@ class VisionWrapper():  # TODO tfの名前を可変にする。TFの名前の取
         return list(obj_pos_from_map)
 
     def object_info_wrapper(self, objects_info):
-        rospy.loginfo("object call back")
         if len(objects_info.objects) is 0:
             rospy.loginfo("object is none")
             return None
