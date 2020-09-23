@@ -2,7 +2,7 @@
 # coding: utf-8
 import rospy
 import numpy as np
-from vision_module_msg.msg import ObjectInfo, FaceInfo
+from vision_module_msgs.msg import ObjectInfo, FaceInfo
 import tf2_ros
 import tf
 
